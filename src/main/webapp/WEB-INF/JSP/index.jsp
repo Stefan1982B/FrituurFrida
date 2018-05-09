@@ -16,5 +16,9 @@
 	<dt>postcode</dt><dd>${adres.gemeente.postcode}</dd>
 	<dt>gemeente</dt><dd>${adres.gemeente.naam}</dd>
 	</dl>
+	
+	<c:if test='${not empty laatstBezocht}'> 
+	  <p>welkom terug</p>
+	   </c:if>
 </body>
 </html>

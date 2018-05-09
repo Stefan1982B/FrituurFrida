@@ -9,28 +9,35 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import be.vdab.FrituurFrida4.services.SausService;
 import be.vdab.FrituurFrida4.valueobjects.Saus;
 
 @Controller
 @RequestMapping("sauzen")
+public
 class SauzenController {
 
 	private static final String SAUZEN_VIEW = "sauzen";
-	private final List<Saus> sauzen = new ArrayList<>();
+//	private final List<Saus> sauzen = new ArrayList<>();
+	private SausService sausService;
 	
-	SauzenController(){
-		sauzen.add(new Saus(1L, "mayonaise", Arrays.asList("olie", "citroen", "eieren")));
-		sauzen.add(new Saus(2L, "cocktail",Arrays.asList("tomaten", "olie", "suiker", "mayonaise")));
-		sauzen.add(new Saus(3L, "tartare", Arrays.asList ("mayonaise", "kruidenboter")));
-		sauzen.add(new Saus(4L, "mosterd", Arrays.asList ("mosterdzaad", "olie", "zout")));
-		sauzen.add(new Saus(4L, "vinaigrette", Arrays.asList("azijn", "olie", "zout", "peper")));
+	public SauzenController(SausService sausService){
+//		sauzen.add(new Saus(1L, "mayonaise", Arrays.asList("olie", "citroen", "eieren")));
+//		sauzen.add(new Saus(2L, "cocktail",Arrays.asList("tomaten", "olie", "suiker", "mayonaise")));
+//		sauzen.add(new Saus(3L, "tartare", Arrays.asList ("mayonaise", "kruidenboter")));
+//		sauzen.add(new Saus(4L, "mosterd", Arrays.asList ("mosterdzaad", "olie", "zout")));
+//		sauzen.add(new Saus(4L, "vinaigrette", Arrays.asList("azijn", "olie", "zout", "peper")));
+		
+		this.sausService = sausService;
+		
 		}
 	
 	
 	
 	@GetMapping
+	public
 	ModelAndView sauzen() {
-		return new ModelAndView(SAUZEN_VIEW, "sauzen", sauzen);
+		return new ModelAndView(SAUZEN_VIEW, "sauzen", sausService.findAll());
 		
 	}
 	

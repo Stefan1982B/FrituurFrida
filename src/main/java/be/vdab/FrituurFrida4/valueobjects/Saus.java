@@ -32,7 +32,8 @@ public Saus(long nummer, String naam, List<String> ingredienten) {
 }
 Saus() {
 }
-
-
-
+public Saus(long nummer, String naam) {
+	this.nummer = nummer;
+	this.naam = naam;
+}
 }
