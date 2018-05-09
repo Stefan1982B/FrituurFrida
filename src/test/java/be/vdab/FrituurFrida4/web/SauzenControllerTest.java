@@ -1,4 +1,4 @@
-package be.vdab.FrituurFrida4;
+package be.vdab.FrituurFrida4.web;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

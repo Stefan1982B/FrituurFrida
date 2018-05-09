@@ -11,6 +11,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import be.vdab.FrituurFrida4.exceptions.SausRepositoryException;
@@ -20,12 +21,15 @@ import be.vdab.FrituurFrida4.valueobjects.Saus;
 @Qualifier("prop")
 class PropertiesSausRepository implements SausRepository {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PropertiesSausRepository.class);
-	  private static final Path PAD = Paths.get("/data/sauzen.properties");
+	  private final Path pad;
+	  PropertiesSausRepository(@Value("${prop}") Path pad) { 
+		  this.pad = pad;
+		  }
 
 	@Override
 	public List<Saus> findAll() {
 		List<Saus> sauzen = new ArrayList<>();
-		try (BufferedReader reader = Files.newBufferedReader(PAD)) {
+		try (BufferedReader reader = Files.newBufferedReader(pad)) {
 			for (String regel; (regel = reader.readLine()) != null;) {
 				if (!regel.isEmpty()) {
 					String[] onderdelen = regel.split(",|:");
