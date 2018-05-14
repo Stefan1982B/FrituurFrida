@@ -19,19 +19,19 @@ public class JdbcSnackRepository implements SnackRepository {
 
 	private final NamedParameterJdbcTemplate template;
 
-	private final RowMapper<Snack> SnackRowMapper = (resultSet, rowNum) -> new Snack(resultSet.getInt("id"),
-			resultSet.getString("naam"), resultSet.getBigDecimal("prijs"));
-
 	JdbcSnackRepository(NamedParameterJdbcTemplate template) {
 		this.template = template;
 	}
 
-	private static final String READ = "select id, naam, prijs, pikant from pizzas where id= :id";
+	private final RowMapper<Snack> snackRowMapper = (resultSet, rowNum) -> new Snack(resultSet.getInt("id"),
+			resultSet.getString("naam"), resultSet.getBigDecimal("prijs"));
+
+	private static final String READ = "select id, naam, prijs from snacks where id= :id";
 
 	@Override
 	public Optional<Snack> read(long id) {
 		try {
-			return Optional.of(template.queryForObject(READ, Collections.singletonMap("id", id), SnackRowMapper));
+			return Optional.of(template.queryForObject(READ, Collections.singletonMap("id", id), snackRowMapper));
 		} catch (IncorrectResultSizeDataAccessException ex) {
 			return Optional.empty();
 		}
@@ -50,11 +50,18 @@ public class JdbcSnackRepository implements SnackRepository {
 		}
 	}
 
-
+	private static final String SELECT_BY_BEGIN_LETTER = "select id, naam, prijs from snacks where naam like :zoals";
 	@Override
 	public List<Snack> findByBeginNaam(String beginNaam) {
-		// TODO Auto-generated method stub
-		return null;
+		return template.query(SELECT_BY_BEGIN_LETTER, Collections.singletonMap("zoals", beginNaam + '%'),
+				snackRowMapper);
 	}
 
-}
+
+		private static final String SELECT_ALL =   "select id, naam, prijs from snacks order by id"; 
+		@Override public List<Snack> findAll() { 
+			return template.query(SELECT_ALL, snackRowMapper);  } 
+		
+	}
+
+

@@ -4,12 +4,10 @@
 <html lang='nl'>
 <head>
 <c:import url='/WEB-INF/JSP/head.jsp'>
-	<c:param name='title' value="Headers" />
+	<c:param name='title' value='Snack niet gevonden' />
 </c:import>
 </head>
 <body>
-<c:import url='/WEB-INF/JSP/menu.jsp'/> 
-
-	Je voorkeurstaal is ${intNederlands ? "Nederlands" : "geen Nederlands"}.
+	<h1>Snack niet gevonden</h1>
 </body>
 </html>

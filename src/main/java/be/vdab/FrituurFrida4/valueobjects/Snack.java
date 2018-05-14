@@ -2,9 +2,15 @@ package be.vdab.FrituurFrida4.valueobjects;
 
 import java.math.BigDecimal;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class Snack {
 private int id;
+@NotBlank
 private String naam;
+@NotNull @Min(0)
 private BigDecimal prijs;
 
 public int getId() {
